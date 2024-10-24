@@ -19,9 +19,8 @@ public class VideoRepositoryImpl implements VideoRepository {
     }
 
     @Override
-    public Video save(Video video) {
+    public void save(Video video) {
         this.videos.add( video );
-        return video;
     }
 
     @Override
@@ -30,7 +29,7 @@ public class VideoRepositoryImpl implements VideoRepository {
         for ( Video video : videos ) {
             if(title.equals( video.title() )){
                 if(filteredVideos == null){
-                    filteredVideos = new ArrayList<Video>();
+                    filteredVideos = new ArrayList<>();
                 }
                 filteredVideos.add(video);
             }
@@ -40,7 +39,7 @@ public class VideoRepositoryImpl implements VideoRepository {
 
     @Override
     public List<Video> find(Double fromDuration, Double toDuration) {
-        List<Video> filteredVideos = new ArrayList<Video>();
+        List<Video> filteredVideos = new ArrayList<>();
         for ( Video video : videos ) {
             if(video.duration()> fromDuration && video.duration()< toDuration){
                 filteredVideos.add(video);
