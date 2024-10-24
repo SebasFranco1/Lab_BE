@@ -1,13 +1,12 @@
 package culturemedia.repository.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import culturemedia.model.View;
 import culturemedia.repository.ViewsRepository;
 
-public class ViewsRepositoryImpl implements ViewsRepository {
+import java.util.ArrayList;
+import java.util.List;
 
+public class ViewsRepositoryImpl implements ViewsRepository {
     private final List<View> views;
 
     public ViewsRepositoryImpl() {
@@ -15,7 +14,7 @@ public class ViewsRepositoryImpl implements ViewsRepository {
     }
 
     @Override
-    public View save(View view) {
+    public View add(View view) {
         this.views.add( view );
         return view;
     }

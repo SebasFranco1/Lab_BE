@@ -1,9 +1,10 @@
 package culturemedia.repository.impl;
-import java.util.ArrayList;
-import java.util.List;
 
 import culturemedia.model.Video;
 import culturemedia.repository.VideoRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoRepositoryImpl implements VideoRepository {
 
@@ -19,18 +20,16 @@ public class VideoRepositoryImpl implements VideoRepository {
     }
 
     @Override
-    public void save(Video video) {
-        this.videos.add( video );
+    public Video save(Video video) {
+        this.videos.add(video);
+        return video;
     }
 
     @Override
     public List<Video> find(String title) {
-        List<Video> filteredVideos = null;
-        for ( Video video : videos ) {
-            if(title.equals( video.title() )){
-                if(filteredVideos == null){
-                    filteredVideos = new ArrayList<>();
-                }
+        List<Video> filteredVideos = new ArrayList<>();
+        for (Video video : videos) {
+            if (video.title().contains(title)) {
                 filteredVideos.add(video);
             }
         }
@@ -39,9 +38,9 @@ public class VideoRepositoryImpl implements VideoRepository {
 
     @Override
     public List<Video> find(Double fromDuration, Double toDuration) {
-        List<Video> filteredVideos = new ArrayList<>();
-        for ( Video video : videos ) {
-            if(video.duration()> fromDuration && video.duration()< toDuration){
+        List<Video> filteredVideos = new ArrayList<Video>();
+        for (Video video : videos) {
+            if (video.duration() >= fromDuration && video.duration() <= toDuration) {
                 filteredVideos.add(video);
             }
         }

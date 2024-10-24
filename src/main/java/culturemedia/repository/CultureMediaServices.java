@@ -5,7 +5,7 @@ import culturemedia.model.View;
 
 import java.util.List;
 
-public interface CultureMediaService {
+public interface CultureMediaServices {
     List<Video> listarTodos();
 
     Video agregar(Video video);
