@@ -2,8 +2,15 @@ package culturemedia.repository;
 
 import java.util.List;
 
+import culturemedia.exception.VideoNotFoundException;
+import culturemedia.service.VideoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.mockito.Mockito;
+import java.util.Arrays;
+import java.util.Collections;
+
 
 import culturemedia.model.Video;
 import culturemedia.repository.impl.VideoRepositoryImpl;
@@ -61,4 +68,32 @@ class VideoRepositoryTest {
         assert(false);
     }
 
+    @Test
+    void when_FindAll_all_videos_should_be_returned_successfully() throws VideoNotFoundException {
+        VideoRepository videoRepository = Mockito.mock(VideoRepository.class);
+        Video video1 = new Video("Title1", "Description1", 120, "url1");
+        Video video2 = new Video("Title2", "Description2", 150, "url2");
+        List<Video> videos = Arrays.asList(video1, video2);
+        Mockito.when(videoRepository.findAll()).thenReturn(videos);
+
+        VideoService videoService = new VideoService(videoRepository);
+        List<Video> returnedVideos = videoService.findAll();
+
+        Assertions.assertEquals(2, returnedVideos.size());
+        Assertions.assertTrue(returnedVideos.contains(video1));
+        Assertions.assertTrue(returnedVideos.contains(video2));
+    }
+
+    @Test
+    void when_FindAll_does_not_find_any_video_an_VideoNotFoundException_should_be_thrown_successfully() {
+        Object Mockito;
+        VideoRepository videoRepository = Mockito.mock(VideoRepository.class);
+        Mockito.when(videoRepository.findAll()).thenReturn(Collections.emptyList());
+
+        VideoService videoService = new VideoService(videoRepository);
+
+        Assertions.assertThrows(VideoNotFoundException.class, () -> {
+            videoService.findAll();
+   });
+}
 }
