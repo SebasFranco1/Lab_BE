@@ -1,15 +1,15 @@
 package culturemedia.repository.impl;
 
 import culturemedia.model.View;
-import culturemedia.repository.ViewsRepository;
+import culturemedia.repository.ViewRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewsRepositoryImpl implements ViewsRepository {
+public class ViewRepositoryImpl implements ViewRepository {
     private final List<View> views;
 
-    public ViewsRepositoryImpl() {
+    public ViewRepositoryImpl() {
         this.views = new ArrayList<>();
     }
 
