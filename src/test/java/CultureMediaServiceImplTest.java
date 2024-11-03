@@ -30,7 +30,7 @@ class CultureMediaServiceImplTest {
     @BeforeEach
     void init() {
         ViewRepository viewsRepository = new ViewRepositoryImpl();
-        cultureMediaService = new CultureMediaServiceImpl(videoRepository, viewsRepository);
+        CultureMediaServices cultureMediaServices = new CultureMediaServiceImpl(videoRepository, viewsRepository);
     }
 
     @Test
