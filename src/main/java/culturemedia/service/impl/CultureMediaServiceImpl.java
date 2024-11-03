@@ -1,70 +1,66 @@
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+package culturemedia.service.impl;
+
+import culturemedia.exception.VideoNotFoundException;
+import culturemedia.model.Video;
+import culturemedia.model.View;
+import culturemedia.repository.VideoRepository;
+import culturemedia.repository.ViewRepository;
+import culturemedia.service.CultureMediaServices;
 
 import java.util.List;
 
-import culturemedia.service.CultureMediaServices;
-import culturemedia.service.impl.CultureMediaServiceImpl;
-import culturemedia.exception.VideoNotFoundException;
-import culturemedia.model.Video;
+public class CultureMediaServiceImpl implements CultureMediaServices {
+    private VideoRepository videoRepository;
+    private ViewRepository viewRepository;
 
-@Test
-void when_find_ForTitle_an_VideoNotFoundException_should_be_thrown_successfully() {
-    assertThrows(VideoNotFoundException.class, () -> {
-        cultureMediaService.find("anything");
-    } );
+    public CultureMediaServiceImpl(VideoRepository videoRepository, ViewRepository viewRepository) {
+        this.videoRepository = videoRepository;
+        this.viewRepository = viewRepository;
+    }
+
+    @Override
+    public Video add(Video video){
+        Video videoAdd = videoRepository.save(video);
+        return videoAdd;
+    }
+
+    @Override
+    public View add(View view) {
+        View viewAdd = viewRepository.add(view);
+        return viewAdd;
+    }
+
+    @Override
+    public List<Video> findAllVideos() throws VideoNotFoundException {
+        List<Video> videos = videoRepository.findAll();
+        if(videos.isEmpty()){
+            throw new VideoNotFoundException();
+        }
+        else{
+            return videos;
+        }
+    }
+    @Override
+    public List<Video> find(String title) throws VideoNotFoundException {
+        List<Video> videos = videoRepository.find(title);
+        if(videos.isEmpty()){
+            throw new VideoNotFoundException();
+        }
+        else{
+            return videos;
+        }
+    }
+
+    @Override
+    public List<Video> find(double fromDuration, double toDuration) throws VideoNotFoundException {
+        List<Video> videos = videoRepository.find(fromDuration, toDuration);
+        if(videos.isEmpty()){
+            throw new VideoNotFoundException();
+        }
+        else{
+            return videos;
+        }
+    }
+
+
 }
-
-@Test
-void when_Find_ByDuration_an_VideoNotFoundException_thrown_successfully() {
-    assertThrows(VideoNotFoundException.class, () -> {
-        cultureMediaService.find(0.0,0.9);
-    });
-
-}
-
-@Test
-void when_findByTitle_should_be_returned_successfully() {
-    List<Video> videos = List.of(
-            exampleVideo1,
-            exampleVideo2,
-            exampleVideo3,
-            exampleVideo4,
-            exampleVideo5,
-            exampleVideo6
-    );
-
-    for ( Video video : videos ) {
-        cultureMediaService.add( video );
-    }
-
-    assertThrows(VideoNotFoundException.class, () -> {
-        cultureMediaService.find("Hilmer");
-    });
-}
-
-@Test
-void when_findByDuration_should_be_returned_succesfully() {
-    List<Video> videos = List.of(
-            exampleVideo1,
-            exampleVideo2,
-            exampleVideo3,
-            exampleVideo4,
-            exampleVideo5,
-            exampleVideo6
-    );
-
-    for ( Video video : videos ) {
-        cultureMediaService.add( video );
-    }
-
-    try{
-        List<Video> video = cultureMediaService.find(0, 5.5);
-        assertEquals(5, video.size());
-    }
-    catch (VideoNotFoundException e){
-        assert(false);
-    }
-}
-    }
