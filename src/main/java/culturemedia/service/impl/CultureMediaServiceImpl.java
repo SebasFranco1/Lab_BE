@@ -19,7 +19,7 @@ public class CultureMediaServiceImpl implements CultureMediaServices {
     }
 
     @Override
-    public Video add(Video video){
+    public Video add(Video video) {
         Video videoAdd = videoRepository.save(video);
         return videoAdd;
     }
@@ -33,20 +33,19 @@ public class CultureMediaServiceImpl implements CultureMediaServices {
     @Override
     public List<Video> findAllVideos() throws VideoNotFoundException {
         List<Video> videos = videoRepository.findAll();
-        if(videos.isEmpty()){
+        if (videos.isEmpty()) {
             throw new VideoNotFoundException();
-        }
-        else{
+        } else {
             return videos;
         }
     }
+
     @Override
     public List<Video> find(String title) throws VideoNotFoundException {
         List<Video> videos = videoRepository.find(title);
-        if(videos.isEmpty()){
+        if (videos.isEmpty()) {
             throw new VideoNotFoundException();
-        }
-        else{
+        } else {
             return videos;
         }
     }
@@ -54,15 +53,16 @@ public class CultureMediaServiceImpl implements CultureMediaServices {
     @Override
     public List<Video> find(double fromDuration, double toDuration) throws VideoNotFoundException {
         List<Video> videos = videoRepository.find(fromDuration, toDuration);
-        if(videos.isEmpty()){
+        if (videos.isEmpty()) {
             throw new VideoNotFoundException();
-        }
-        else{
+        } else {
             return videos;
         }
     }
 
 
     public List<Video> findAll() {
+        return List.of();
     }
 }
+
