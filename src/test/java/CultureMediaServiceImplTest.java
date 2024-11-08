@@ -30,7 +30,7 @@ class CultureMediaServiceImplTest {
     @BeforeEach
     void init() {
         ViewRepository viewsRepository = new ViewRepositoryImpl();
-        CultureMediaServices cultureMediaServices = new CultureMediaServiceImpl(videoRepository, viewsRepository);
+        cultureMediaService = new CultureMediaServiceImpl(videoRepository, viewsRepository);
     }
 
     @Test
@@ -97,12 +97,7 @@ class CultureMediaServiceImplTest {
     }
 
     private void mockVideoRepositoryFindAll(List <Video> videos){
-        assert doReturn(videos) != null;
         doReturn(videos).when(videoRepository).findAll();
-    }
-
-    private Object doReturn(List<Video> videos) {
-        return null;
     }
 
     private void mockVideoRepositoryFind(String title, List<Video> videos){
