@@ -108,3 +108,4 @@ class CultureMediaServiceImplTest {
         doReturn(videos).when(videoRepository).find(eq(fromDuration), eq(toDuration));
     }
 }
+

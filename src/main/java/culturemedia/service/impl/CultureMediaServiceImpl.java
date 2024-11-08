@@ -61,6 +61,4 @@ public class CultureMediaServiceImpl implements CultureMediaServices {
             return videos;
         }
     }
-
-
 }
